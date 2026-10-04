@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#090a09">
+  <meta name="description" content="LUMA turns live audio into vivid, customizable waveform visuals for your DAW and desktop. Make music visible with Openmeter Studios.">
+  <title>LUMA — Make music visible | Openmeter Studios</title>
+  <link rel="preload" as="image" href="assets/luma-gradient-spectrum.png">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #090a09;
+      --surface: #101210;
+      --line: rgba(255,255,255,.10);
+      --muted: #92958f;
+      --text: #f2f3ef;
+      --green: #b6fb55;
+      --page: min(1160px, calc(100% - 64px));
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; background: var(--bg); }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; text-decoration: none; }
+    .wrap { width: var(--page); margin-inline: auto; }
+    .topbar {
+      height: 88px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--line);
+    }
+    .brand { display: flex; align-items: center; gap: 12px; font-size: 14px; font-weight: 650; letter-spacing: -.02em; }
+    .brand-icon { display: block; width: 52px; height: 52px; border-radius: 13px; object-fit: cover; }
+    .brand-divider { height: 17px; width: 1px; background: #454741; }
+    .brand-product { color: #b9bcb5; font-size: 12px; letter-spacing: .14em; }
+    .nav { display: flex; align-items: center; gap: 28px; font-size: 12px; color: #a5a8a1; }
+    .nav a:hover, .text-link:hover { color: #fff; }
+    .nav .nav-cta { color: var(--bg); background: var(--text); border-radius: 999px; padding: 10px 16px; font-weight: 650; transition: background .2s, transform .2s; }
+    .nav .nav-cta:hover { color: var(--bg); background: var(--green); transform: translateY(-1px); }
+    .hero { padding: 88px 0 56px; text-align: center; }
+    .eyebrow { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
+    h1 { max-width: 860px; margin: 23px auto 18px; font-size: clamp(54px, 8vw, 104px); line-height: .92; letter-spacing: -.082em; font-weight: 620; }
+    h1 span { color: #777b73; }
+    .hero-copy { max-width: 520px; margin: 0 auto; color: #a8aba4; font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6; letter-spacing: -.015em; }
+    .hero-actions { margin-top: 29px; display: flex; align-items: center; justify-content: center; gap: 22px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 45px; padding: 0 19px; border-radius: 999px; background: var(--green); color: #11140d; font-size: 13px; font-weight: 680; letter-spacing: -.01em; transition: transform .2s, background .2s; }
+    .button:hover { transform: translateY(-2px); background: #d0ff8b; }
+    .text-link { font-size: 13px; color: #c6c8c2; }
+    .arrow { font-size: 16px; }
+    .hero-slideshow { margin-top: 67px; text-align: left; }
+    .hero-slide-window { overflow: hidden; aspect-ratio: 1692 / 530; border: 1px solid rgba(255,255,255,.14); border-radius: 15px; background: #111310; box-shadow: 0 28px 80px rgba(0,0,0,.38); }
+    .hero-slide-track { display: flex; width: 400%; height: 100%; transition: transform .8s cubic-bezier(.2,.72,.2,1); }
+    .hero-slide { flex: 0 0 25%; min-width: 0; height: 100%; }
+    .hero-slide img { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .hero-slide-meta { display: flex; align-items: center; justify-content: center; min-height: 35px; }
+    .hero-slide-dots { display: flex; flex: 0 0 auto; gap: 7px; }
+    .hero-slide-dots button { width: 7px; height: 7px; padding: 0; border: 0; border-radius: 50%; background: #51554d; cursor: pointer; }
+    .hero-slide-dots button[aria-current="true"] { width: 21px; border-radius: 5px; background: var(--green); }
+    .spec-strip { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); padding: 21px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+    .spec-strip > div { text-align: center; padding: 2px 16px; }
+    .spec-strip > div + div { border-left: 1px solid var(--line); }
+    .spec-strip dt { color: var(--text); font-size: 20px; font-weight: 570; letter-spacing: -.05em; }
+    .spec-strip dd { margin: 5px 0 0; color: #777b73; font-size: 10px; letter-spacing: .035em; }
+    .modules-section { padding: 72px 0 14px; border-top: 1px solid var(--line); }
+    .modules-heading { margin-bottom: 30px; }
+    .modules-heading .eyebrow { margin-bottom: 11px; }
+    .modules-heading h2 { font-size: clamp(32px, 4vw, 46px); }
+    .modules-heading p { max-width: 480px; margin: 12px 0 0; color: #898d85; font-size: 13px; line-height: 1.65; }
+    .compatibility { margin-top: 13px; color: #676b64; font-size: 10px; letter-spacing: .025em; }
+    .compatibility span { color: var(--green); padding: 0 5px; }
+    .modules-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 22px; row-gap: 32px; }
+    .module { min-width: 0; }
+    .module-visual { display: grid; place-items: center; overflow: hidden; aspect-ratio: 16 / 9; background: #111310; border-radius: 10px; }
+    .module-visual img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .module-copy { padding-top: 14px; }
+    .module-kicker { margin-bottom: 8px; color: var(--green); font: 9px ui-monospace, SFMono-Regular, Menlo, monospace; letter-spacing: .12em; text-transform: uppercase; }
+    .module h3 { margin: 0; font-size: 19px; font-weight: 560; letter-spacing: -.04em; }
+    .module p { max-width: 410px; margin: 8px 0 0; color: #898d85; font-size: 12px; line-height: 1.6; }
+    .studio-tools { padding: 53px 0 17px; border-top: 1px solid var(--line); }
+    .section-heading { margin-bottom: 27px; }
+    .section-heading .eyebrow { margin-bottom: 10px; }
+    .section-heading h2 { margin: 0; font-size: clamp(27px, 3.4vw, 38px); letter-spacing: -.055em; }
+    .section-heading p { max-width: 510px; margin: 10px 0 0; color: #898d85; font-size: 13px; line-height: 1.65; }
+    .tools-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px; }
+    .tool-module { min-width: 0; }
+    .tool-module .module-visual { aspect-ratio: 1.75 / 1; }
+    .tool-module p { max-width: 470px; }
+    .color-maps { display: grid; grid-template-columns: .9fr 1.1fr; align-items: center; gap: 48px; padding: 34px 0 42px; border-top: 1px solid var(--line); }
+    .color-maps .eyebrow { margin-bottom: 11px; }
+    .color-maps h3 { margin: 0; font-size: 22px; font-weight: 550; letter-spacing: -.045em; }
+    .color-maps p { max-width: 340px; margin: 9px 0 0; color: #898d85; font-size: 12px; line-height: 1.6; }
+    .color-maps img { display: block; width: min(100%, 520px); height: auto; justify-self: end; border-radius: 6px; }
+    .more-section { padding: 27px 0 40px; border-top: 1px solid var(--line); }
+    .more-heading { display: flex; justify-content: space-between; align-items: center; gap: 20px; margin-bottom: 16px; }
+    .more-heading h3 { margin: 0; font-size: 14px; font-weight: 550; letter-spacing: -.02em; }
+    .more-controls { display: flex; gap: 7px; }
+    .more-controls button { width: 31px; height: 31px; border: 1px solid var(--line); border-radius: 50%; background: transparent; color: #c6c8c2; font-size: 16px; cursor: pointer; }
+    .more-controls button:hover { color: var(--green); border-color: rgba(182,251,85,.5); }
+    .more-track { display: grid; grid-auto-columns: minmax(200px, 25%); grid-auto-flow: column; gap: 14px; overflow-x: auto; padding-bottom: 10px; scroll-snap-type: x mandatory; scrollbar-width: thin; scrollbar-color: #42463d transparent; }
+    .more-item { min-width: 0; margin: 0; scroll-snap-align: start; }
+    .more-item img { display: block; width: 100%; height: 112px; object-fit: contain; background: #111310; border-radius: 6px; }
+    .close { border-top: 1px solid var(--line); padding: 75px 0 80px; text-align: center; }
+    .close h2 { max-width: 620px; margin: 16px auto 25px; }
+    footer { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); color: #72766e; font-size: 11px; }
+    .footer-links { display: flex; gap: 20px; }
+    @media (max-width: 700px) {
+      :root { --page: calc(100% - 38px); }
+      .topbar { height: 72px; }
+      .brand-icon { width: 48px; height: 48px; border-radius: 12px; }
+      .nav { gap: 16px; }
+      .nav > a:not(.nav-cta) { display: none; }
+      .nav .nav-cta { padding: 9px 13px; }
+      .hero { padding: 76px 0 33px; }
+      h1 { max-width: 520px; font-size: clamp(54px, 14vw, 82px); }
+      .hero-copy { max-width: 400px; }
+      .hero-slideshow { margin-top: 50px; }
+      .hero-slide-window { border-radius: 10px; }
+      .hero-slide-meta { min-height: 34px; }
+      .spec-strip { padding: 17px 0; }
+      .spec-strip > div { padding: 2px 8px; }
+      .spec-strip dt { font-size: 17px; }
+      .spec-strip dd { font-size: 9px; line-height: 1.4; }
+      .modules-section { padding-top: 58px; }
+      .modules-heading { margin-bottom: 24px; }
+      .modules-grid { grid-template-columns: 1fr; row-gap: 29px; }
+      .module-visual { aspect-ratio: 16 / 10; }
+      .studio-tools { padding-top: 42px; }
+      .tools-grid { grid-template-columns: 1fr; gap: 31px; }
+      .tool-module .module-visual { aspect-ratio: 16 / 10; }
+      .color-maps { grid-template-columns: 1fr; gap: 19px; padding: 27px 0 32px; }
+      .color-maps img { justify-self: start; }
+      .more-section { padding: 24px 0 32px; }
+      .more-track { grid-auto-columns: 72%; gap: 10px; }
+      .more-item img { height: 100px; }
+      .close { padding: 64px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="topbar wrap">
+    <a class="brand" href="#top" aria-label="Openmeter Studios home">
+      <img class="brand-icon" src="assets/luma-icon.png" alt=""><span class="brand-divider"></span><span class="brand-product">LUMA</span>
+    </a>
+    <nav class="nav" aria-label="Main navigation">
+      <a href="#features">Why LUMA</a>
+      <a href="#more-screens">In use</a>
+      <a class="nav-cta" href="https://github.com/OpenMeterStudio/LUMA/releases">Get the beta <span aria-hidden="true">↗</span></a>
+    </nav>
+  </header>
+  <main id="top">
+    <section class="hero wrap">
+      <div class="eyebrow">A visual instrument by Openmeter</div>
+      <h1>Make music<br><span>visible.</span></h1>
+      <p class="hero-copy">LUMA turns live audio into a waveform you can shape, color, and put on screen. Made for the studio. Ready for the clip.</p>
+      <div class="hero-actions">
+        <a class="button" href="https://github.com/OpenMeterStudio/LUMA/releases">Get the beta <span class="arrow" aria-hidden="true">↗</span></a>
+      </div>
+      <div class="hero-slideshow" aria-label="LUMA waveform color variations">
+        <div class="hero-slide-window">
+          <div class="hero-slide-track" id="hero-slide-track">
+            <div class="hero-slide"><img src="assets/luma-gradient-spectrum.png" alt="LUMA stereo waveform in a violet to lime color gradient" fetchpriority="high"></div>
+            <div class="hero-slide"><img src="assets/luma-color-spectrum.png" alt="LUMA stereo waveform in a violet, cyan, green, and yellow gradient" loading="lazy"></div>
+            <div class="hero-slide"><img src="assets/luma-warm-spectrum.png" alt="LUMA stereo waveform in a rainbow gradient from violet to red" loading="lazy"></div>
+            <div class="hero-slide"><img src="assets/luma-blue-spectrum.png" alt="LUMA stereo waveform in vivid electric blue" loading="lazy"></div>
+          </div>
+        </div>
+        <div class="hero-slide-meta">
+          <div class="hero-slide-dots" aria-label="Choose a waveform look">
+            <button type="button" aria-label="Show waveform look 1" aria-current="true" data-slide="0"></button>
+            <button type="button" aria-label="Show waveform look 2" aria-current="false" data-slide="1"></button>
+            <button type="button" aria-label="Show waveform look 3" aria-current="false" data-slide="2"></button>
+            <button type="button" aria-label="Show waveform look 4" aria-current="false" data-slide="3"></button>
+          </div>
+        </div>
+      </div>
+    </section>
+    <dl class="spec-strip wrap" aria-label="LUMA performance and size">
+      <div><dt>Up to 60 FPS</dt><dd>60 Hz redraw timer</dd></div>
+      <div><dt>0 samples</dt><dd>No audio delay added</dd></div>
+      <div><dt>~2.5 MB</dt><dd>Installed VST3 bundle</dd></div>
+    </dl>
+    <section class="modules-section wrap" id="features" aria-label="LUMA features">
+      <div class="modules-heading"><div class="eyebrow">A real-time visual instrument for Ableton</div><h2>See your session take shape.</h2><p>LUMA is a screen-only VST3 visualizer for Ableton Live. Audio is designed to pass through unchanged; the live display runs only while its editor is open.</p><div class="compatibility">macOS 11+<span>·</span>Apple silicon + Intel<span>·</span>Ableton Live verified<span>·</span>Windows not supported in this candidate</div></div>
+      <div class="modules-grid">
+        <article class="module">
+          <div class="module-visual"><img src="assets/luma-stereo.png" alt="LUMA stereo split waveform view" loading="lazy"></div>
+          <div class="module-copy"><div class="module-kicker">Stereo split</div><h3>See both sides.</h3><p>Give the left and right channels their own lanes. Stereo split is available when five-band mode is off.</p></div>
+        </article>
+        <article class="module">
+          <div class="module-visual"><img src="assets/luma-layered-mix.png" alt="Four layered LUMA waveforms in pink, red, violet, and cyan" loading="lazy"></div>
+          <div class="module-copy"><div class="module-kicker">Multi-instance</div><h3>Bring every track together.</h3><p>Add LUMA to each track, start playback, and keep the first active instance's MASTER editor open. Every lane keeps its own visual settings.</p></div>
+        </article>
+        <article class="module">
+          <div class="module-visual"><img src="assets/luma-multiband.png" alt="LUMA multiband waveform with five colored frequency bands" loading="lazy"></div>
+          <div class="module-copy"><div class="module-kicker">Five-band mode</div><h3>Watch the frequencies move.</h3><p>Split audio into five filtered bands from sub to high. Give each a color, then stack or layer them; multiband takes precedence over stereo split.</p></div>
+        </article>
+      </div>
+    </section>
+    <section class="studio-tools wrap" aria-labelledby="studio-tools-title">
+      <div class="section-heading"><div class="eyebrow">Make the picture yours</div><h2 id="studio-tools-title">More control. Less setup.</h2><p>Choose the VST3 inside Ableton or run LUMA as a standalone macOS client.</p></div>
+      <div class="tools-grid">
+        <article class="tool-module">
+          <div class="module-visual"><img src="assets/luma-vst-controls.png" alt="LUMA VST controls inside a DAW" loading="lazy"></div>
+          <div class="module-copy"><div class="module-kicker">VST3 controls</div><h3>Dial in every detail.</h3><p>Automate color, amplitude, fill, outline, line width, and detail per instance. Add camera or image layers with opacity and tint controls; camera use needs macOS permission. Optional telemetry shows render status and FPS.</p></div>
+        </article>
+        <article class="tool-module">
+          <div class="module-visual"><img src="assets/luma-controls.png" alt="LUMA standalone client settings and audio controls" loading="lazy"></div>
+          <div class="module-copy"><div class="module-kicker">Standalone for macOS</div><h3>Keep LUMA outside the DAW.</h3><p>Run the native client with any Core Audio input—your microphone, interface, or loopback source—and keep the waveform on screen.</p></div>
+        </article>
+      </div>
+    </section>
+    <section class="color-maps wrap" aria-labelledby="color-maps-title">
+      <div><div class="eyebrow">A little more color</div><h3 id="color-maps-title">Color map options</h3><p>Choose HSV, Viridis, Magma, or Turbo. Switch on gradient coloring to shift the palette across the waveform.</p></div>
+      <img src="assets/luma-color-grades.png" alt="HSV, Viridis, Magma, and Turbo color maps" loading="lazy">
+    </section>
+    <section class="more-section wrap" id="more-screens" aria-label="More LUMA screenshots">
+      <div class="more-heading"><h3>More from the session</h3><div class="more-controls"><button type="button" data-more-scroll="-1" aria-label="Scroll to previous screenshots">‹</button><button type="button" data-more-scroll="1" aria-label="Scroll to next screenshots">›</button></div></div>
+      <div class="more-track" id="more-track" tabindex="0">
+        <figure class="more-item"><img src="assets/luma-vocals.png" alt="Pink vocal waveform above a cyan waveform" loading="lazy"></figure>
+        <figure class="more-item"><img src="assets/luma-spacious-mix.png" alt="Spacious four lane waveform arrangement" loading="lazy"></figure>
+        <figure class="more-item"><img src="assets/luma-rhythmic-mix.png" alt="Rhythmic four lane waveform arrangement" loading="lazy"></figure>
+        <figure class="more-item"><img src="assets/luma-backgrounds.png" alt="LUMA waveform with image background layers" loading="lazy"></figure>
+        <figure class="more-item"><img src="assets/luma-waveform.png" alt="Two live waveforms in LUMA" loading="lazy"></figure>
+      </div>
+    </section>
+    <section class="close wrap">
+      <div class="eyebrow">Openmeter Studios · LUMA</div>
+      <h2>Your next track has a look.</h2>
+      <a class="button" href="https://github.com/OpenMeterStudio/LUMA/releases">Ask for the beta <span class="arrow" aria-hidden="true">↗</span></a>
+    </section>
+  </main>
+  <footer class="wrap">
+    <span>© <span id="year">2026</span> Openmeter Studios</span>
+    <div class="footer-links"><a class="text-link" href="https://github.com/openmeter" target="_blank" rel="noreferrer">GitHub ↗</a><a class="text-link" href="mailto:support@openmeter.com">Contact ↗</a></div>
+  </footer>
+  <script>
+    const heroTrack = document.querySelector('#hero-slide-track');
+    const heroDots = [...document.querySelectorAll('.hero-slide-dots button')];
+    let currentHeroSlide = 0;
+    const showHeroSlide = (index) => {
+      currentHeroSlide = (index + heroDots.length) % heroDots.length;
+      heroTrack.style.transform = `translateX(-${currentHeroSlide * 25}%)`;
+      heroDots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === currentHeroSlide)));
+    };
+    let heroTimer = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? null
+      : window.setInterval(() => showHeroSlide(currentHeroSlide + 1), 4500);
+    heroDots.forEach((dot) => dot.addEventListener('click', () => showHeroSlide(Number(dot.dataset.slide))));
+
+    const moreTrack = document.querySelector('#more-track');
+    document.querySelectorAll('[data-more-scroll]').forEach((button) => {
+      button.addEventListener('click', () => {
+        const item = moreTrack.querySelector('.more-item');
+        moreTrack.scrollBy({ left: (item?.getBoundingClientRect().width || 220) * Number(button.dataset.moreScroll) + 14, behavior: 'smooth' });
+      });
+    });
+  </script>
+</body>
+</html>
