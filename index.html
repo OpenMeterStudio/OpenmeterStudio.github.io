@@ -26,7 +26,11 @@
       color: var(--text);
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
       -webkit-font-smoothing: antialiased;
+      -webkit-user-select: none;
+      user-select: none;
+      -webkit-touch-callout: none;
     }
+    img, a, button, video { -webkit-user-drag: none; }
     a { color: inherit; text-decoration: none; }
     .wrap { width: var(--page); margin-inline: auto; }
     .topbar {
@@ -50,12 +54,13 @@
     h1 span {
       color: transparent;
       background: linear-gradient(90deg, #ff4b4b, #ffb32c, #fff044, #4fe26c, #20d7db, #3f84ff, #9c57ff, #ee55c6, #ff4b4b);
-      background-size: 240% 100%;
+      background-size: 100% 100%;
       background-clip: text;
       -webkit-background-clip: text;
-      animation: turbo-rainbow 8s linear infinite;
+      animation: turbo-rainbow 10s linear infinite;
+      filter: hue-rotate(0deg);
     }
-    @keyframes turbo-rainbow { to { background-position: 240% 0; } }
+    @keyframes turbo-rainbow { to { filter: hue-rotate(360deg); } }
     .hero-copy { max-width: 520px; margin: 0 auto; color: #a8aba4; font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6; letter-spacing: -.015em; }
     .hero-actions { margin-top: 29px; display: flex; align-items: center; justify-content: center; gap: 22px; }
     .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 45px; padding: 0 19px; border-radius: 999px; background: var(--green); color: #11140d; font-size: 13px; font-weight: 680; letter-spacing: -.01em; transition: transform .2s, background .2s; }
@@ -165,7 +170,7 @@
       .close { padding: 64px 0; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
-    @media (prefers-reduced-motion: reduce) { h1 span { animation: none; background-position: 50% 0; } }
+    @media (prefers-reduced-motion: reduce) { h1 span { animation: none; filter: none; } }
   </style>
 </head>
 <body>
@@ -222,7 +227,7 @@
       </video>
     </section>
     <section class="modules-section wrap" id="features" aria-label="LUMA features">
-      <div class="modules-heading"><div class="eyebrow">A real-time visual instrument for Ableton</div><h2>See your session take shape.</h2><p>LUMA is a screen-only VST3 visualizer for Ableton Live. Audio is designed to pass through unchanged; the live display runs only while its editor is open.</p><div class="compatibility">macOS 11+<span>·</span>Apple silicon + Intel<span>·</span>Ableton Live verified<span>·</span>Windows not supported in this candidate</div></div>
+      <div class="modules-heading"><div class="eyebrow">A real-time visual instrument for Ableton</div><h2>See your session take shape.</h2><p>The demo is a screen-only VST3 visualizer for Ableton Live. The paid release also includes the standalone macOS client. Audio is designed to pass through unchanged; the live display runs only while its editor is open.</p><div class="compatibility">macOS 11+<span>·</span>Apple silicon + Intel<span>·</span>Ableton Live verified<span>·</span>Windows not supported in this candidate</div></div>
       <div class="modules-grid">
         <article class="module">
           <div class="module-visual"><img src="assets/luma-stereo.png" alt="LUMA stereo split waveform view" loading="lazy"></div>
@@ -239,7 +244,7 @@
       </div>
     </section>
     <section class="studio-tools wrap" aria-labelledby="studio-tools-title">
-      <div class="section-heading"><div class="eyebrow">Make the picture yours</div><h2 id="studio-tools-title">More control. Less setup.</h2><p>Choose the VST3 inside Ableton or run LUMA as a standalone macOS client.</p></div>
+      <div class="section-heading"><div class="eyebrow">Make the picture yours</div><h2 id="studio-tools-title">More control. Less setup.</h2><p>Fine-tune the VST3 demo, then get the standalone macOS client with the paid release.</p></div>
       <div class="tools-grid">
         <article class="tool-module">
           <div class="module-visual"><img src="assets/luma-vst-controls.png" alt="LUMA VST controls inside a DAW" loading="lazy"></div>
@@ -247,7 +252,7 @@
         </article>
         <article class="tool-module">
           <div class="module-visual"><img src="assets/luma-controls.png" alt="LUMA standalone client settings and audio controls" loading="lazy"></div>
-          <div class="module-copy"><div class="module-kicker">Standalone for macOS</div><h3>Keep LUMA outside the DAW.</h3><p>Run the native client with any Core Audio input—your microphone, interface, or loopback source—and keep the waveform on screen.</p></div>
+          <div class="module-copy"><div class="module-kicker">Paid release · macOS</div><h3>Take LUMA beyond your DAW.</h3><p>The paid release includes the native standalone client. Use any Core Audio input—your microphone, interface, or loopback source—and keep the waveform on screen.</p></div>
         </article>
       </div>
     </section>
