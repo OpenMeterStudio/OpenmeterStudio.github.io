@@ -47,11 +47,21 @@
     .hero { padding: 88px 0 56px; text-align: center; }
     .eyebrow { color: var(--green); font-size: 10px; font-weight: 700; letter-spacing: .22em; text-transform: uppercase; }
     h1 { max-width: 860px; margin: 23px auto 18px; font-size: clamp(54px, 8vw, 104px); line-height: .92; letter-spacing: -.082em; font-weight: 620; }
-    h1 span { color: #777b73; }
+    h1 span {
+      color: transparent;
+      background: linear-gradient(90deg, #ff4b4b, #ffb32c, #fff044, #4fe26c, #20d7db, #3f84ff, #9c57ff, #ee55c6, #ff4b4b);
+      background-size: 240% 100%;
+      background-clip: text;
+      -webkit-background-clip: text;
+      animation: turbo-rainbow 8s linear infinite;
+    }
+    @keyframes turbo-rainbow { to { background-position: 240% 0; } }
     .hero-copy { max-width: 520px; margin: 0 auto; color: #a8aba4; font-size: clamp(15px, 1.7vw, 18px); line-height: 1.6; letter-spacing: -.015em; }
     .hero-actions { margin-top: 29px; display: flex; align-items: center; justify-content: center; gap: 22px; }
     .button { display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 45px; padding: 0 19px; border-radius: 999px; background: var(--green); color: #11140d; font-size: 13px; font-weight: 680; letter-spacing: -.01em; transition: transform .2s, background .2s; }
     .button:hover { transform: translateY(-2px); background: #d0ff8b; }
+    .button-secondary { color: var(--text); background: #191c18; border: 1px solid var(--line); }
+    .button-secondary:hover { color: var(--bg); background: var(--green); }
     .text-link { font-size: 13px; color: #c6c8c2; }
     .arrow { font-size: 16px; }
     .hero-slideshow { margin-top: 67px; text-align: left; }
@@ -114,6 +124,9 @@
     .more-item img { display: block; width: 100%; height: 112px; object-fit: contain; background: #111310; border-radius: 6px; }
     .close { border-top: 1px solid var(--line); padding: 75px 0 80px; text-align: center; }
     .close h2 { max-width: 620px; margin: 16px auto 25px; }
+    .close .discord-button { margin-bottom: 18px; }
+    .contact-emails { display: flex; justify-content: center; flex-wrap: wrap; gap: 9px 22px; color: #92958f; font-size: 12px; }
+    .contact-emails a:hover { color: var(--text); }
     footer { min-height: 66px; display: flex; align-items: center; justify-content: space-between; gap: 20px; border-top: 1px solid var(--line); color: #72766e; font-size: 11px; }
     .footer-links { display: flex; gap: 20px; }
     @media (max-width: 700px) {
@@ -152,6 +165,7 @@
       .close { padding: 64px 0; }
     }
     @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; } }
+    @media (prefers-reduced-motion: reduce) { h1 span { animation: none; background-position: 50% 0; } }
   </style>
 </head>
 <body>
@@ -162,7 +176,7 @@
     <nav class="nav" aria-label="Main navigation">
       <a href="#features">Why LUMA</a>
       <a href="#more-screens">In use</a>
-      <a class="nav-cta" href="https://github.com/OpenMeterStudio/LUMA/releases">Get the beta <span aria-hidden="true">↗</span></a>
+      <a class="nav-cta" href="https://discord.gg/apxN7JqK39" target="_blank" rel="noreferrer">Join our Discord <span aria-hidden="true">↗</span></a>
     </nav>
   </header>
   <main id="top">
@@ -171,15 +185,16 @@
       <h1>Make music<br><span>visible.</span></h1>
       <p class="hero-copy">LUMA turns live audio into a waveform you can shape, color, and put on screen. Made for the studio. Ready for the clip.</p>
       <div class="hero-actions">
-        <a class="button" href="https://github.com/OpenMeterStudio/LUMA/releases">Get the beta <span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="button" href="https://github.com/OpenMeterStudio/LUMA/releases">Get the Demo <span class="arrow" aria-hidden="true">↗</span></a>
+        <a class="button button-secondary" href="https://openmeter.itch.io/" target="_blank" rel="noreferrer">Buy Luma <span class="arrow" aria-hidden="true">↗</span></a>
       </div>
       <div class="hero-slideshow" aria-label="LUMA waveform color variations">
         <div class="hero-slide-window">
           <div class="hero-slide-track" id="hero-slide-track">
-            <div class="hero-slide"><img src="assets/luma-gradient-spectrum.png" alt="LUMA stereo waveform in a violet to lime color gradient" fetchpriority="high"></div>
-            <div class="hero-slide"><img src="assets/luma-color-spectrum.png" alt="LUMA stereo waveform in a violet, cyan, green, and yellow gradient" loading="lazy"></div>
-            <div class="hero-slide"><img src="assets/luma-warm-spectrum.png" alt="LUMA stereo waveform in a rainbow gradient from violet to red" loading="lazy"></div>
-            <div class="hero-slide"><img src="assets/luma-blue-spectrum.png" alt="LUMA stereo waveform in vivid electric blue" loading="lazy"></div>
+            <div class="hero-slide"><img src="assets/luma-gradient-spectrum.png" alt="LUMA stereo waveform in a violet to lime color gradient" fetchpriority="high" decoding="async"></div>
+            <div class="hero-slide"><img src="assets/luma-color-spectrum.png" alt="LUMA stereo waveform in a violet, cyan, green, and yellow gradient" loading="eager" decoding="async"></div>
+            <div class="hero-slide"><img src="assets/luma-warm-spectrum.png" alt="LUMA stereo waveform in a rainbow gradient from violet to red" loading="eager" decoding="async"></div>
+            <div class="hero-slide"><img src="assets/luma-blue-spectrum.png" alt="LUMA stereo waveform in vivid electric blue" loading="eager" decoding="async"></div>
           </div>
         </div>
         <div class="hero-slide-meta">
@@ -253,12 +268,16 @@
     <section class="close wrap">
       <div class="eyebrow">Openmeter Studios · LUMA</div>
       <h2>Your next track has a look.</h2>
-      <a class="button" href="https://github.com/OpenMeterStudio/LUMA/releases">Ask for the beta <span class="arrow" aria-hidden="true">↗</span></a>
+      <a class="button discord-button" href="https://discord.gg/apxN7JqK39" target="_blank" rel="noreferrer">Join our Discord <span class="arrow" aria-hidden="true">↗</span></a>
+      <div class="contact-emails">
+        <a href="mailto:support@openemeter.studio">support@openemeter.studio</a>
+        <a href="mailto:jay@openmeter.studio">jay@openmeter.studio</a>
+      </div>
     </section>
   </main>
   <footer class="wrap">
     <span>© <span id="year">2026</span> Openmeter Studios</span>
-    <div class="footer-links"><a class="text-link" href="https://github.com/openmeter" target="_blank" rel="noreferrer">GitHub ↗</a><a class="text-link" href="mailto:support@openmeter.com">Contact ↗</a></div>
+    <div class="footer-links"><a class="text-link" href="https://github.com/openmeter" target="_blank" rel="noreferrer">GitHub ↗</a></div>
   </footer>
   <script>
     const heroTrack = document.querySelector('#hero-slide-track');
@@ -269,10 +288,25 @@
       heroTrack.style.transform = `translateX(-${currentHeroSlide * 25}%)`;
       heroDots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === currentHeroSlide)));
     };
-    let heroTimer = window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      ? null
-      : window.setInterval(() => showHeroSlide(currentHeroSlide + 1), 4500);
-    heroDots.forEach((dot) => dot.addEventListener('click', () => showHeroSlide(Number(dot.dataset.slide))));
+    const heroReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let heroTimer = null;
+    const scheduleHeroAdvance = () => {
+      window.clearTimeout(heroTimer);
+      heroTimer = null;
+      if (heroReducedMotion.matches || document.hidden || heroDots.length < 2) return;
+      heroTimer = window.setTimeout(() => {
+        showHeroSlide(currentHeroSlide + 1);
+        scheduleHeroAdvance();
+      }, 4500);
+    };
+    heroDots.forEach((dot) => dot.addEventListener('click', () => {
+      showHeroSlide(Number(dot.dataset.slide));
+      scheduleHeroAdvance();
+    }));
+    document.addEventListener('visibilitychange', scheduleHeroAdvance);
+    window.addEventListener('pageshow', scheduleHeroAdvance);
+    heroReducedMotion.addEventListener?.('change', scheduleHeroAdvance);
+    scheduleHeroAdvance();
 
     const moreTrack = document.querySelector('#more-track');
     document.querySelectorAll('[data-more-scroll]').forEach((button) => {
