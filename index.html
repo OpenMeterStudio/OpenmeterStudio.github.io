@@ -89,6 +89,8 @@
     .demo-heading h2 { margin: 0; font-size: clamp(27px, 3.4vw, 38px); letter-spacing: -.055em; }
     .demo-caption { margin: 0 0 3px; color: #898d85; font-size: 13px; line-height: 1.6; }
     .demo-video { display: block; width: 100%; aspect-ratio: 16 / 9; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: #111310; box-shadow: 0 28px 80px rgba(0,0,0,.3); }
+    .demo-video.viewer-preview { aspect-ratio: 1920 / 526; }
+    .viewer-preview-block { margin-bottom: 46px; }
     .modules-section { padding: 72px 0 14px; border-top: 1px solid var(--line); }
     .modules-heading { margin-bottom: 30px; }
     .modules-heading .eyebrow { margin-bottom: 11px; }
@@ -217,11 +219,21 @@
       <div><dt>~2.5 MB</dt><dd>Installed VST3 bundle</dd></div>
     </dl>
     <section class="demo-section wrap" aria-labelledby="demo-title">
+      <div class="viewer-preview-block" aria-labelledby="viewer-preview-title">
+        <div class="demo-heading">
+          <div><div class="eyebrow">One-minute preview</div><h2 id="viewer-preview-title">LUMA + envelope follower.</h2></div>
+          <p class="demo-caption">The envelope follower drives the hue, turning changes in the sound into color.</p>
+        </div>
+        <video class="demo-video viewer-preview" controls playsinline preload="metadata" poster="assets/luma-viewer-poster.jpg">
+          <source src="assets/luma-viewer-preview.mp4" type="video/mp4">
+          Your browser does not support embedded video.
+        </video>
+      </div>
       <div class="demo-heading">
         <div><div class="eyebrow">Made to be seen</div><h2 id="demo-title">THE visualization tool.</h2></div>
         <p class="demo-caption">Turn your session into a visual worth sharing.</p>
       </div>
-      <video class="demo-video" controls playsinline preload="metadata">
+      <video class="demo-video" controls playsinline preload="metadata" poster="assets/luma-demo-poster.jpg">
         <source src="assets/luma-demo.mp4" type="video/mp4">
         Your browser does not support embedded video.
       </video>
@@ -293,12 +305,11 @@
       heroTrack.style.transform = `translateX(-${currentHeroSlide * 25}%)`;
       heroDots.forEach((dot, i) => dot.setAttribute('aria-current', String(i === currentHeroSlide)));
     };
-    const heroReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     let heroTimer = null;
     const scheduleHeroAdvance = () => {
       window.clearTimeout(heroTimer);
       heroTimer = null;
-      if (heroReducedMotion.matches || document.hidden || heroDots.length < 2) return;
+      if (document.hidden || heroDots.length < 2) return;
       heroTimer = window.setTimeout(() => {
         showHeroSlide(currentHeroSlide + 1);
         scheduleHeroAdvance();
@@ -310,7 +321,6 @@
     }));
     document.addEventListener('visibilitychange', scheduleHeroAdvance);
     window.addEventListener('pageshow', scheduleHeroAdvance);
-    heroReducedMotion.addEventListener?.('change', scheduleHeroAdvance);
     scheduleHeroAdvance();
 
     const moreTrack = document.querySelector('#more-track');
